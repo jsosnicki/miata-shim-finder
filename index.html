@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Miata Shim Finder</title>
+  <meta name="description" content="Find the cheapest valve shims for a Miata BP head across Toyota, Silver Seal and Mazda part numbers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <main id="app" class="page">
+    <header class="masthead">
+      <h1>Miata Shim Finder</h1>
+      <p class="lede">Enter the shim sizes you need. This finds the cheapest order across the Toyota, Silver Seal and Mazda parts that fit a BP head, with pack sizes and shipping counted.</p>
+    </header>
+
+    <div class="layout">
+      <section class="controls" aria-label="Your shims">
+        <div class="field">
+          <div class="label-row">
+            <label for="sizes">Shim sizes, in mm</label>
+            <span class="sample-tag" id="sample-tag" hidden>Sample list</span>
+          </div>
+          <textarea id="sizes" rows="6" spellcheck="false" autocomplete="off" aria-describedby="sizes-help"></textarea>
+          <p class="help" id="sizes-help">Separate with commas or new lines. Repeat a size or write <code>3.05x2</code> for two. Inches work too: <code>0.1201</code>.</p>
+          <p class="error" id="parse-errors" hidden></p>
+          <div class="button-row">
+            <button type="button" class="ghost" id="use-sample">Use sample</button>
+            <button type="button" class="ghost" id="clear">Clear</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="tolerance">Size match</label>
+          <select id="tolerance">
+            <option value="0">Exact size only</option>
+            <option value="0.005" selected>Within 0.005 mm</option>
+            <option value="0.01">Within 0.010 mm</option>
+            <option value="0.025">Within 0.025 mm</option>
+          </select>
+          <p class="help">Mazda's nominal sizes are slightly off round, such as 3.052 for 3.05. The default treats those as the same size.</p>
+        </div>
+
+        <fieldset class="field">
+          <legend>Part lines</legend>
+          <div id="line-filters" class="check-list"></div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Options</legend>
+          <div class="check-list">
+            <label class="check"><input type="checkbox" id="count-shipping" checked> Count shipping when choosing stores</label>
+            <label class="check"><input type="checkbox" id="include-backorder" checked> Include items listed with 0 on hand</label>
+          </div>
+        </fieldset>
+
+        <details class="field store-picker">
+          <summary>Stores</summary>
+          <div id="store-filters" class="check-list"></div>
+        </details>
+      </section>
+
+      <div class="results" id="results" aria-live="polite">
+        <p class="loading">Loading parts and prices…</p>
+      </div>
+    </div>
+
+    <section class="coverage" aria-labelledby="coverage-title">
+      <h2 id="coverage-title">Size coverage</h2>
+      <p class="help">Each tick is one part number. Solid ticks can be ordered now. Blue lines mark the sizes in your list.</p>
+      <div id="gauge" class="gauge-wrap"></div>
+    </section>
+
+    <footer class="notes">
+      <h2>Before you order</h2>
+      <ul>
+        <li id="freshness"></li>
+        <li>Shipping is an estimate quoted to Richmond, VA. Your ZIP will change it. Totals leave out sales tax.</li>
+        <li>Silver Seal discs come in packs of 4. Piston Depot accepts orders for them but lists 0 on hand, so ask about lead time.</li>
+        <li>BP shims are nominally 27 mm (26.95 mm actual). Toyota fit comes from the part list this tool is based on and has not been separately confirmed, so measure one before ordering a full set.</li>
+      </ul>
+      <p class="sources">Parts: <a href="https://www.thecarpassionchannel.com/wp-content/uploads/2019/11/Shim-Part-Numbers.pdf">Shim Part Numbers PDF</a>, checked against the <a href="https://www.miataturbo.net/engine-performance-56/bp-lifter-shims-90918/">Miata Turbo BP lifter shims thread</a>.</p>
+    </footer>
+  </main>
+  <script type="module" src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,541 @@
+{
+ "source": "Shim-Part-Numbers.pdf (The Car Passion Channel, 2019)",
+ "lines": {
+  "toyota": {
+   "label": "Toyota",
+   "series": "13753-50xxx",
+   "packQty": 1
+  },
+  "silverseal": {
+   "label": "Silver Seal",
+   "series": "NISK (Nissan fit)",
+   "packQty": 4
+  },
+  "mazda": {
+   "label": "Mazda",
+   "series": "Z5Yx / Z502",
+   "packQty": 1
+  }
+ },
+ "stores": [
+  {
+   "id": "toyotapartsdeal",
+   "name": "ToyotaPartsDeal",
+   "url": "https://www.toyotapartsdeal.com",
+   "line": "toyota",
+   "adapter": "apg",
+   "urlTemplate": "https://www.toyotapartsdeal.com/oem/toyota~shim~valve~adjusting~{pn}.html",
+   "shipping": {
+    "type": "flat",
+    "base": 12.4,
+    "perItem": 0.0725
+   },
+   "shippingNote": "Quoted to Richmond, VA 23219 on 2026-11-05: $12.47 for 1 shim, $12.98 for 8."
+  },
+  {
+   "id": "toyotapartsnow",
+   "name": "ToyotaPartsNow",
+   "url": "https://www.toyotapartsnow.com",
+   "line": "toyota",
+   "adapter": "apg",
+   "urlTemplate": "https://www.toyotapartsnow.com/oem/toyota~shim-valve-adjusting~{pn}",
+   "shipping": {
+    "type": "flat",
+    "base": 12.5675,
+    "perItem": 0.0725
+   },
+   "shippingNote": "Quoted to Richmond, VA 23219 on 2026-11-05: $12.64 for 1 shim. Per-shim rate assumed from ToyotaPartsDeal."
+  },
+  {
+   "id": "lexuspartsnow",
+   "name": "LexusPartsNow",
+   "url": "https://www.lexuspartsnow.com",
+   "line": "toyota",
+   "adapter": "apg",
+   "urlTemplate": "https://www.lexuspartsnow.com/parts/lexus-shim-valve-adjusting~{pn}.html",
+   "shipping": {
+    "type": "flat",
+    "base": 8.85,
+    "perItem": 0
+   },
+   "shippingNote": "Quoted to Richmond, VA 23219 on 2026-11-05: $8.85 for 1 shim."
+  },
+  {
+   "id": "pistondepot",
+   "name": "Piston Depot",
+   "url": "https://pistondepot.com",
+   "line": "silverseal",
+   "adapter": "shopify",
+   "urlTemplate": "https://pistondepot.com/products/{handle}",
+   "shipping": {
+    "type": "tiers",
+    "tiers": [
+     {
+      "under": 50,
+      "cost": 11.99
+     },
+     {
+      "under": 100,
+      "cost": 6.99
+     },
+     {
+      "cost": 0
+     }
+    ]
+   },
+   "shippingNote": "Quoted to Richmond, VA 23219 on 2026-11-05: $11.99 under $50, $6.99 for $50 to $99.99, free at $100 and up."
+  },
+  {
+   "id": "mazdapartsnow",
+   "name": "MazdaPartsNow",
+   "url": "https://www.mazdapartsnow.com",
+   "line": "mazda",
+   "adapter": "apg",
+   "urlTemplate": "https://www.mazdapartsnow.com/genuine/mazda~shim~{pnlower}",
+   "shipping": {
+    "type": "flat",
+    "base": 9.31,
+    "perItem": 0
+   },
+   "shippingNote": "Quoted to Richmond, VA 23219 on 2026-11-05: $9.31 for 1 shim."
+  },
+  {
+   "id": "originalmazdaparts",
+   "name": "Original Mazda Parts",
+   "url": "https://www.originalmazdaparts.com",
+   "line": "mazda",
+   "adapter": "revolution",
+   "urlTemplate": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-{pnlower}",
+   "shipping": {
+    "type": "flat",
+    "base": 9.78,
+    "perItem": 0
+   },
+   "shippingNote": "Quoted to Richmond, VA 23219 on 2026-11-05: $9.78 for 1 shim and for 8."
+  },
+  {
+   "id": "mazdapartsfactor",
+   "name": "Mazda Parts Factor",
+   "url": "https://www.mazdapartsfactor.com",
+   "line": "mazda",
+   "adapter": "revolution",
+   "urlTemplate": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-{pnlower}",
+   "shipping": {
+    "type": "flat",
+    "base": 7.75,
+    "perItem": 0
+   },
+   "shippingNote": "Quoted to Richmond, VA 23219 on 2026-11-05: $7.75 for 1 shim."
+  }
+ ],
+ "parts": [
+  {
+   "id": "13753-50010",
+   "line": "toyota",
+   "mm": 2.5,
+   "in": 0.0984
+  },
+  {
+   "id": "13753-50620",
+   "line": "toyota",
+   "mm": 2.525,
+   "in": 0.0994
+  },
+  {
+   "id": "13753-50630",
+   "line": "toyota",
+   "mm": 2.55,
+   "in": 0.1004
+  },
+  {
+   "id": "13753-50640",
+   "line": "toyota",
+   "mm": 2.575,
+   "in": 0.1014
+  },
+  {
+   "id": "13753-50060",
+   "line": "toyota",
+   "mm": 2.6,
+   "in": 0.1024
+  },
+  {
+   "id": "13753-50650",
+   "line": "toyota",
+   "mm": 2.625,
+   "in": 0.1033
+  },
+  {
+   "id": "13753-50660",
+   "line": "toyota",
+   "mm": 2.65,
+   "in": 0.1043
+  },
+  {
+   "id": "13753-50670",
+   "line": "toyota",
+   "mm": 2.675,
+   "in": 0.1053
+  },
+  {
+   "id": "13753-50130",
+   "line": "toyota",
+   "mm": 2.7,
+   "in": 0.1063
+  },
+  {
+   "id": "13753-50680",
+   "line": "toyota",
+   "mm": 2.725,
+   "in": 0.1073
+  },
+  {
+   "id": "13753-50180",
+   "line": "toyota",
+   "mm": 2.75,
+   "in": 0.1083
+  },
+  {
+   "id": "13753-50690",
+   "line": "toyota",
+   "mm": 2.775,
+   "in": 0.1093
+  },
+  {
+   "id": "13753-50230",
+   "line": "toyota",
+   "mm": 2.8,
+   "in": 0.1102
+  },
+  {
+   "id": "13753-50700",
+   "line": "toyota",
+   "mm": 2.825,
+   "in": 0.1112
+  },
+  {
+   "id": "13753-50280",
+   "line": "toyota",
+   "mm": 2.85,
+   "in": 0.1122
+  },
+  {
+   "id": "13753-50710",
+   "line": "toyota",
+   "mm": 2.875,
+   "in": 0.1132
+  },
+  {
+   "id": "13753-50330",
+   "line": "toyota",
+   "mm": 2.9,
+   "in": 0.1142
+  },
+  {
+   "id": "13753-50720",
+   "line": "toyota",
+   "mm": 2.925,
+   "in": 0.1152
+  },
+  {
+   "id": "13753-50380",
+   "line": "toyota",
+   "mm": 2.95,
+   "in": 0.1161
+  },
+  {
+   "id": "13753-50730",
+   "line": "toyota",
+   "mm": 2.975,
+   "in": 0.1171
+  },
+  {
+   "id": "13753-50430",
+   "line": "toyota",
+   "mm": 3.0,
+   "in": 0.1181
+  },
+  {
+   "id": "13753-50740",
+   "line": "toyota",
+   "mm": 3.025,
+   "in": 0.1191
+  },
+  {
+   "id": "13753-50480",
+   "line": "toyota",
+   "mm": 3.05,
+   "in": 0.1201
+  },
+  {
+   "id": "13753-50750",
+   "line": "toyota",
+   "mm": 3.075,
+   "in": 0.1211
+  },
+  {
+   "id": "13753-50510",
+   "line": "toyota",
+   "mm": 3.1,
+   "in": 0.122
+  },
+  {
+   "id": "13753-50760",
+   "line": "toyota",
+   "mm": 3.125,
+   "in": 0.123
+  },
+  {
+   "id": "13753-50770",
+   "line": "toyota",
+   "mm": 3.15,
+   "in": 0.124
+  },
+  {
+   "id": "13753-50780",
+   "line": "toyota",
+   "mm": 3.175,
+   "in": 0.125
+  },
+  {
+   "id": "13753-50560",
+   "line": "toyota",
+   "mm": 3.2,
+   "in": 0.126
+  },
+  {
+   "id": "13753-50790",
+   "line": "toyota",
+   "mm": 3.225,
+   "in": 0.127
+  },
+  {
+   "id": "13753-50800",
+   "line": "toyota",
+   "mm": 3.25,
+   "in": 0.128
+  },
+  {
+   "id": "13753-50810",
+   "line": "toyota",
+   "mm": 3.275,
+   "in": 0.1289
+  },
+  {
+   "id": "13753-50610",
+   "line": "toyota",
+   "mm": 3.3,
+   "in": 0.1299
+  },
+  {
+   "id": "NISK2-00",
+   "line": "silverseal",
+   "mm": 2.0,
+   "in": 0.0787
+  },
+  {
+   "id": "NISK2-05",
+   "line": "silverseal",
+   "mm": 2.05,
+   "in": 0.0807
+  },
+  {
+   "id": "NISK2-10",
+   "line": "silverseal",
+   "mm": 2.1,
+   "in": 0.0827
+  },
+  {
+   "id": "NISK2-15",
+   "line": "silverseal",
+   "mm": 2.15,
+   "in": 0.0846
+  },
+  {
+   "id": "NISK2-20",
+   "line": "silverseal",
+   "mm": 2.2,
+   "in": 0.0866
+  },
+  {
+   "id": "NISK2-25",
+   "line": "silverseal",
+   "mm": 2.25,
+   "in": 0.0886
+  },
+  {
+   "id": "NISK2-30",
+   "line": "silverseal",
+   "mm": 2.3,
+   "in": 0.0906
+  },
+  {
+   "id": "NISK2-35",
+   "line": "silverseal",
+   "mm": 2.35,
+   "in": 0.0925
+  },
+  {
+   "id": "NISK2-40",
+   "line": "silverseal",
+   "mm": 2.4,
+   "in": 0.0945
+  },
+  {
+   "id": "NISK2-45",
+   "line": "silverseal",
+   "mm": 2.45,
+   "in": 0.0965
+  },
+  {
+   "id": "NISK2-50",
+   "line": "silverseal",
+   "mm": 2.5,
+   "in": 0.0984
+  },
+  {
+   "id": "NISK2-55",
+   "line": "silverseal",
+   "mm": 2.55,
+   "in": 0.1004
+  },
+  {
+   "id": "NISK2-60",
+   "line": "silverseal",
+   "mm": 2.6,
+   "in": 0.1024
+  },
+  {
+   "id": "NISK2-65",
+   "line": "silverseal",
+   "mm": 2.65,
+   "in": 0.1043
+  },
+  {
+   "id": "NISK2-70",
+   "line": "silverseal",
+   "mm": 2.7,
+   "in": 0.1063
+  },
+  {
+   "id": "NISK2-75",
+   "line": "silverseal",
+   "mm": 2.75,
+   "in": 0.1083
+  },
+  {
+   "id": "NISK2-80",
+   "line": "silverseal",
+   "mm": 2.8,
+   "in": 0.1102
+  },
+  {
+   "id": "NISK2-85",
+   "line": "silverseal",
+   "mm": 2.85,
+   "in": 0.1122
+  },
+  {
+   "id": "NISK2-90",
+   "line": "silverseal",
+   "mm": 2.9,
+   "in": 0.1142
+  },
+  {
+   "id": "NISK2-95",
+   "line": "silverseal",
+   "mm": 2.95,
+   "in": 0.1161
+  },
+  {
+   "id": "NISK3-00",
+   "line": "silverseal",
+   "mm": 3.0,
+   "in": 0.1181
+  },
+  {
+   "id": "Z5Y1-12-541",
+   "line": "mazda",
+   "mm": 2.75,
+   "in": 0.1083
+  },
+  {
+   "id": "Z5Y2-12-541",
+   "line": "mazda",
+   "mm": 2.8,
+   "in": 0.1102
+  },
+  {
+   "id": "Z5Y3-12-541",
+   "line": "mazda",
+   "mm": 2.85,
+   "in": 0.1122
+  },
+  {
+   "id": "Z5Y4-12-541",
+   "line": "mazda",
+   "mm": 2.9,
+   "in": 0.1142
+  },
+  {
+   "id": "Z5Y5-12-541",
+   "line": "mazda",
+   "mm": 2.95,
+   "in": 0.1161
+  },
+  {
+   "id": "Z5Y6-12-541",
+   "line": "mazda",
+   "mm": 3.0,
+   "in": 0.1181
+  },
+  {
+   "id": "Z502-12-545",
+   "line": "mazda",
+   "mm": 3.052,
+   "in": 0.1202
+  },
+  {
+   "id": "Z502-12-552",
+   "line": "mazda",
+   "mm": 3.1,
+   "in": 0.122
+  },
+  {
+   "id": "Z502-12-558",
+   "line": "mazda",
+   "mm": 3.148,
+   "in": 0.1239
+  },
+  {
+   "id": "Z502-12-565",
+   "line": "mazda",
+   "mm": 3.196,
+   "in": 0.1258
+  },
+  {
+   "id": "Z502-12-573",
+   "line": "mazda",
+   "mm": 3.252,
+   "in": 0.128
+  },
+  {
+   "id": "Z502-12-579",
+   "line": "mazda",
+   "mm": 3.3,
+   "in": 0.1299
+  },
+  {
+   "id": "Z502-12-586",
+   "line": "mazda",
+   "mm": 3.348,
+   "in": 0.1318
+  },
+  {
+   "id": "Z502-12-593",
+   "line": "mazda",
+   "mm": 3.396,
+   "in": 0.1337
+  }
+ ]
+}

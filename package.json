@@ -1,0 +1,9 @@
+{
+  "name": "miata-shim-finder",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "refresh": "node scripts/refresh-prices.mjs"
+  }
+}

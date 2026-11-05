@@ -14,7 +14,9 @@ Enter a list of valve shim sizes and get the cheapest order for a Mazda BP solid
 
 A GitHub Pages site can't read store pages from the browser, so prices live in `data/prices.json`. `.github/workflows/refresh-prices.yml` updates that file every Monday and commits the result. You can also start it from the Actions tab.
 
-If a page fails, doesn't match the expected format, or shows a price that moved more than 4x, the old price is kept and the store is named as not refreshed at the bottom of the site. Requests are 10 seconds apart and only use public product pages that the stores' `robots.txt` files allow.
+If a page fails, doesn't match the expected format, or shows a price that moved more than 4x, the old price is kept and the site says it didn't refresh. Requests are 10 seconds apart and only use public product pages that the stores' `robots.txt` files allow.
+
+**Original Mazda Parts and Mazda Parts Factor don't refresh.** Both return HTTP 403 to GitHub's servers, so the job stops after three refusals and keeps their last prices. The site labels those prices with their date. Update them in `data/prices.json` by hand, or remove the stores from `data/catalog.json`.
 
 GitHub pauses scheduled workflows after 60 days without repository activity. The weekly price commit normally prevents that. If it does pause, re-enable it from the Actions tab.
 

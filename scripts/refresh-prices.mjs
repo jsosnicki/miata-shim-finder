@@ -17,10 +17,18 @@ const DELAY_MS = Number(process.env.REQUEST_DELAY_MS ?? 10000);
 const RETRY_MS = Number(process.env.RETRY_DELAY_MS ?? 30000);
 // Treat a price that moves this far in one refresh as a parser problem, not a real change.
 const MAX_JUMP = 4;
+// A 403 means the store is refusing this client. Stop asking after a few, and never retry.
+const MAX_REFUSALS = 3;
 const HEADERS = {
   'User-Agent': 'miata-shim-finder/1.0 (weekly price refresh for a hobby tool)',
   Accept: 'text/html,application/json;q=0.9,*/*;q=0.8',
 };
+
+class Refused extends Error {
+  constructor() {
+    super('HTTP 403');
+  }
+}
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -29,16 +37,17 @@ async function get(url) {
     try {
       const res = await fetch(url, { headers: HEADERS, redirect: 'follow', signal: AbortSignal.timeout(30000) });
       if (res.ok) return await res.text();
+      if (res.status === 403) throw new Refused();
       if (attempt === 1) throw new Error(`HTTP ${res.status}`);
     } catch (err) {
-      if (attempt === 1) throw err;
+      if (err instanceof Refused || attempt === 1) throw err;
     }
     await sleep(RETRY_MS);
   }
   throw new Error('unreachable');
 }
 
-async function readOffer(store, offer) {
+async function readOnce(store, offer) {
   if (store.adapter === 'apg') return parseApg(await get(offer.url));
   if (store.adapter === 'revolution') return parseRevolution(await get(offer.url));
   if (store.adapter === 'shopify') {
@@ -49,16 +58,32 @@ async function readOffer(store, offer) {
   throw new Error(`Unknown adapter: ${store.adapter}`);
 }
 
+// One page occasionally comes back malformed, so give it a second chance before giving up.
+async function readOffer(store, offer) {
+  const first = await readOnce(store, offer);
+  if (first) return first;
+  await sleep(RETRY_MS);
+  return readOnce(store, offer);
+}
+
 async function refreshStore(store, offers) {
   const updated = [];
   const failures = [];
+  let refusals = 0;
   for (const offer of offers) {
+    if (refusals >= MAX_REFUSALS) {
+      failures.push(`${offer.part}: skipped, store is refusing requests`);
+      updated.push(offer);
+      continue;
+    }
     let next = null;
     let reason = 'page did not match the expected format';
     try {
       next = await readOffer(store, offer);
+      refusals = 0;
     } catch (err) {
       reason = err.message;
+      if (err instanceof Refused) refusals += 1;
     }
     const jumped =
       next?.price && offer.price &&

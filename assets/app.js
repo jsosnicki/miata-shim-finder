@@ -37,6 +37,18 @@ function currentOptions() {
   };
 }
 
+function shortDate(iso) {
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// A store is out of date only when none of its prices refreshed.
+function staleSince(storeId) {
+  const info = state.prices.stores[storeId];
+  if (!info || info.status === 'ok') return null;
+  const total = state.prices.offers.filter((o) => o.store === storeId).length;
+  return info.failed >= total && info.checkedAt ? shortDate(info.checkedAt) : null;
+}
+
 function statusLabel(offer) {
   if (offer.status === 'unavailable' || !offer.price) return ['off', 'Unavailable at this store'];
   if (offer.status === 'backorder') return ['warn', 'Orderable, 0 on hand'];
@@ -64,9 +76,10 @@ function renderOrder(result, opts, alt) {
           </li>`;
         })
         .join('');
+      const since = staleSince(g.store.id);
       return `<article class="store-card">
         <header>
-          <h3><a href="${esc(g.store.url)}" target="_blank" rel="noopener">${esc(g.store.name)}</a></h3>
+          <h3><a href="${esc(g.store.url)}" target="_blank" rel="noopener">${esc(g.store.name)}</a>${since ? `<span class="stale-tag">Price from ${esc(since)}</span>` : ''}</h3>
           <span class="store-sum" title="${esc(g.store.shippingNote)}">${money(g.subtotal)} + ${money(g.shipping)} ship = <b>${money(g.total)}</b></span>
         </header>
         <ul class="line-list">${lines}</ul>
@@ -246,12 +259,18 @@ function renderFreshness() {
   const when = new Date(state.prices.generatedAt);
   const days = Math.floor((Date.now() - when.getTime()) / 86400000);
   const label = when.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-  const stale = Object.entries(state.prices.stores)
-    .filter(([, v]) => v.status !== 'ok')
-    .map(([id]) => state.catalog.stores.find((s) => s.id === id)?.name || id);
+  const nameOf = (id) => state.catalog.stores.find((s) => s.id === id)?.name || id;
+  const notOk = Object.entries(state.prices.stores).filter(([, v]) => v.status !== 'ok');
+  const stale = notOk.filter(([id]) => staleSince(id));
+  const partial = notOk.filter(([id]) => !staleSince(id));
   let text = `Prices last checked ${label}. Confirm on the store page before you order.`;
   if (days > 14) text += ` These prices are ${days} days old.`;
-  if (stale.length) text += ` Could not refresh: ${stale.join(', ')}.`;
+  if (stale.length) {
+    text += ` ${stale.map(([id]) => nameOf(id)).join(' and ')} can't be updated automatically, so ${stale.length === 1 ? 'its prices' : 'their prices'} may be out of date.`;
+  }
+  for (const [id, v] of partial) {
+    text += ` ${v.failed} ${nameOf(id)} ${v.failed === 1 ? 'price' : 'prices'} did not refresh.`;
+  }
   $('freshness').textContent = text;
 }
 

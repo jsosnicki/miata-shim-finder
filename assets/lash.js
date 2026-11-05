@@ -4,7 +4,7 @@
 // So every valve has a window of shim thicknesses that puts it in spec, and the job is to
 // give each valve one shim from those windows while buying as few as possible.
 //
-// Thicknesses are handled in whole thousandths of a millimetre to avoid float rounding.
+// Thicknesses are handled in whole thousandths of a millimeter to avoid float rounding.
 
 const um = (mm) => Math.round(mm * 1000);
 const toMm = (u) => u / 1000;

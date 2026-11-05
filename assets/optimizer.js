@@ -6,7 +6,8 @@ const MIN_MM = 1.5;
 const MAX_MM = 4.5;
 
 // Accepts: 2.75, 2.75mm, 2.75x3, 3x2.75, 275, 2750, 0.1083 (inches), 0.1083in
-export function parseSizes(text) {
+// Pass known sizes as options.snap so a rounded inch value lands back on the exact size.
+export function parseSizes(text, options = {}) {
   const cleaned = String(text || '')
     .replace(/[×*]/g, 'x')
     .replace(/(\d)\s+(mm|in\b|")/gi, '$1$2')
@@ -35,7 +36,7 @@ export function parseSizes(text) {
       qty = m[3] ? Number(m[3]) : 1;
     }
 
-    const mm = toMm(num, unit);
+    const mm = toMm(num, unit, options.snap);
     if (mm === null || mm < MIN_MM || mm > MAX_MM || qty < 1) {
       errors.push(raw);
       continue;
@@ -49,12 +50,20 @@ export function parseSizes(text) {
   return { requests, errors };
 }
 
-function toMm(num, unit) {
+const INCH_ROUNDING_MM = 0.0013; // Half of the 0.0001 in that sizes are shown to.
+
+function toMm(num, unit, snap = []) {
   let v = Number(num);
   if (!Number.isFinite(v) || v <= 0) return null;
   const u = (unit || '').toLowerCase();
-  if (u === 'in' || u === '"' || (!u && v < 1)) v *= 25.4;
-  else if (!u && !String(num).includes('.')) {
+  if (u === 'in' || u === '"' || (!u && v < 1)) {
+    v *= 25.4;
+    let nearest = null;
+    for (const size of snap) {
+      if (nearest === null || Math.abs(size - v) < Math.abs(nearest - v)) nearest = size;
+    }
+    if (nearest !== null && Math.abs(nearest - v) <= INCH_ROUNDING_MM) return nearest;
+  } else if (!u && !String(num).includes('.')) {
     if (v >= 100 && v < 1000) v /= 100; // stamped 275
     else if (v >= 1000 && v < 10000) v /= 1000; // stamped 2750
   }
@@ -310,13 +319,13 @@ export function solve(requests, offers, stores, options = {}) {
   return { ...summarize(best.lines, storeById), unmatched, covered };
 }
 
-export function orderAsText(result, currency = (n) => `$${n.toFixed(2)}`) {
+export function orderAsText(result, currency = (n) => `$${n.toFixed(2)}`, size = (mm) => `${mm.toFixed(3)} mm`) {
   const out = [];
   for (const g of result.groups) {
     out.push(`${g.store.name}: ${currency(g.total)} (${currency(g.subtotal)} parts, ${currency(g.shipping)} est. shipping)`);
     for (const l of g.lines) {
       const pack = l.offer.packQty > 1 ? ` ${l.offer.packQty}-pack` : '';
-      out.push(`  ${l.units} x${pack} ${l.offer.part} (${l.offer.mm.toFixed(3)} mm) ${currency(l.cost)}`);
+      out.push(`  ${l.units} x${pack} ${l.offer.part} (${size(l.offer.mm)}) ${currency(l.cost)}`);
       out.push(`    ${l.offer.url}`);
     }
   }

@@ -15,9 +15,15 @@
     <header class="masthead">
       <h1>Miata Shim Finder</h1>
       <p class="lede">Enter your lash readings to see which shims can swap between valves, then find the cheapest way to buy the rest across Toyota, Silver Seal and Mazda parts for a BP head.</p>
-      <div class="tabs" role="tablist" aria-label="Tools">
-        <button type="button" role="tab" id="tab-lash" aria-controls="view-lash" aria-selected="true">Lash plan</button>
-        <button type="button" role="tab" id="tab-shims" aria-controls="view-shims" aria-selected="false">Buy shims</button>
+      <div class="tab-bar">
+        <div class="tabs" role="tablist" aria-label="Tools">
+          <button type="button" role="tab" id="tab-lash" aria-controls="view-lash" aria-selected="true">Lash plan</button>
+          <button type="button" role="tab" id="tab-shims" aria-controls="view-shims" aria-selected="false">Buy shims</button>
+        </div>
+        <div class="unit-switch" role="group" aria-label="Units">
+          <button type="button" id="unit-mm" aria-pressed="true" aria-label="Metric, millimeters">mm</button>
+          <button type="button" id="unit-in" aria-pressed="false" aria-label="Imperial, inches">in</button>
+        </div>
       </div>
     </header>
 
@@ -28,11 +34,11 @@
       <section class="controls" aria-label="Your shims">
         <div class="field">
           <div class="label-row">
-            <label for="sizes">Shim sizes, in mm</label>
+            <label for="sizes">Shim sizes, in <span class="unit-long">mm</span></label>
             <span class="sample-tag" id="sample-tag" hidden>Sample list</span>
           </div>
           <textarea id="sizes" rows="6" spellcheck="false" autocomplete="off" aria-describedby="sizes-help"></textarea>
-          <p class="help" id="sizes-help">Separate with commas or new lines. Repeat a size or write <code>3.05x2</code> for two. Inches work too: <code>0.1201</code>.</p>
+          <p class="help" id="sizes-help"></p>
           <p class="error" id="parse-errors" hidden></p>
           <div class="button-row">
             <button type="button" class="ghost" id="use-sample">Use sample</button>
@@ -48,7 +54,7 @@
             <option value="0.01">Within 0.010 mm</option>
             <option value="0.025">Within 0.025 mm</option>
           </select>
-          <p class="help">Mazda's nominal sizes are slightly off round, such as 3.052 for 3.05. The default treats those as the same size.</p>
+          <p class="help" id="tolerance-help"></p>
         </div>
 
         <fieldset class="field">
@@ -87,7 +93,7 @@
         <li id="freshness"></li>
         <li>Shipping is an estimate quoted to Richmond, VA. Your ZIP will change it. Totals leave out sales tax.</li>
         <li>Silver Seal discs come in packs of 4. Piston Depot accepts orders for them but lists 0 on hand, so ask about lead time.</li>
-        <li>BP shims are nominally 27 mm (26.95 mm actual). Toyota fit comes from the part list this tool is based on and has not been separately confirmed, so measure one before ordering a full set.</li>
+        <li>BP shims are nominally <span id="diameter-note">27 mm (26.95 mm actual)</span>. Toyota fit comes from the part list this tool is based on and has not been separately confirmed, so measure one before ordering a full set.</li>
       </ul>
       <p class="sources">Parts: <a href="https://www.thecarpassionchannel.com/wp-content/uploads/2019/11/Shim-Part-Numbers.pdf">Shim Part Numbers PDF</a>, checked against the <a href="https://www.miataturbo.net/engine-performance-56/bp-lifter-shims-90918/">Miata Turbo BP lifter shims thread</a>.</p>
     </footer>

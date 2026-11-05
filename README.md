@@ -2,6 +2,8 @@
 
 Enter your valve lash readings to see which shims can move between valves, then get the cheapest order for the rest. It's built for a Mazda BP solid-lifter head and covers the Toyota, Silver Seal and Mazda parts in the [Shim Part Numbers PDF](https://www.thecarpassionchannel.com/wp-content/uploads/2019/11/Shim-Part-Numbers.pdf).
 
+The **mm / in** switch at the top changes every number on both tabs. Inches show to 4 decimals. Everything is calculated in millimeters, so switching can't change a result.
+
 ## Lash plan
 
 - Enter the shim and measured lash for each of the 16 valves on the head diagram. Partial heads work, and only valves with both numbers are planned.

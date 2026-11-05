@@ -1,5 +1,6 @@
-import { DEFAULT_SPEC, VALVES, buildPlan, buyListText, shimLabel, sizeOptions } from './lash.js';
+import { DEFAULT_SPEC, VALVES, buildPlan, buyListText, sizeOptions } from './lash.js';
 import { parseSizes, solve } from './optimizer.js';
+import { formatLash, formatShim, getUnit, onUnitChange, snapToKnown, toMm, unitName } from './units.js';
 
 const STORAGE_KEY = 'miata-shim-finder:lash';
 
@@ -12,7 +13,8 @@ const SAMPLE = {
 };
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const lashText = (n) => n.toFixed(Math.round(n * 1000) % 10 ? 3 : 2);
+const shimLabel = (mm) => formatShim(mm);
+const lashText = (mm) => formatLash(mm);
 const STATUS_TEXT = { ok: 'In spec', tight: 'Tight', loose: 'Loose' };
 const valveName = (v) => `${v.side === 'intake' ? 'Intake' : 'Exhaust'} cylinder ${v.cyl} ${v.pos === 'F' ? 'front' : 'rear'}`;
 
@@ -39,8 +41,8 @@ function valveCard(v) {
       <span class="valve-status" data-role="status">No reading</span>
     </div>
     <div class="valve-inputs">
-      <label>Shim<input class="num" id="shim-${v.id}" data-field="shim" data-valve="${v.id}" inputmode="decimal" autocomplete="off" aria-label="${esc(valveName(v))} shim in mm"></label>
-      <label>Lash<input class="num" id="lash-${v.id}" data-field="lash" data-valve="${v.id}" inputmode="decimal" autocomplete="off" aria-label="${esc(valveName(v))} lash in mm"></label>
+      <label><span>Shim <span class="unit-short">mm</span></span><input class="num" id="shim-${v.id}" data-field="shim" data-valve="${v.id}" inputmode="decimal" autocomplete="off" aria-label="${esc(valveName(v))} shim"></label>
+      <label><span>Lash <span class="unit-short">mm</span></span><input class="num" id="lash-${v.id}" data-field="lash" data-valve="${v.id}" inputmode="decimal" autocomplete="off" aria-label="${esc(valveName(v))} lash"></label>
     </div>
     <div class="valve-plan" data-role="plan"></div>
   </article>`;
@@ -58,14 +60,14 @@ function cylinder(cyl) {
   </section>`;
 }
 
-function template(spec) {
+function template() {
   const specGroup = (side, label) => `<fieldset class="spec-group">
     <legend>${label} lash spec</legend>
     <div class="spec-inputs">
-      <input class="num" id="spec-${side}-min" data-spec="${side}.min" inputmode="decimal" value="${spec[side].min}" aria-label="${label} minimum lash in mm">
+      <input class="num" id="spec-${side}-min" data-spec="${side}.min" inputmode="decimal" aria-label="${label} minimum lash">
       to
-      <input class="num" id="spec-${side}-max" data-spec="${side}.max" inputmode="decimal" value="${spec[side].max}" aria-label="${label} maximum lash in mm">
-      mm
+      <input class="num" id="spec-${side}-max" data-spec="${side}.max" inputmode="decimal" aria-label="${label} maximum lash">
+      <span class="unit-short">mm</span>
     </div>
   </fieldset>`;
   return `<div class="lash-top">
@@ -86,7 +88,7 @@ function template(spec) {
       <p class="head-hint" id="head-hint" aria-live="polite"></p>
     </section>
     <div class="plan-lists" id="plan-lists"></div>
-    <p class="formula">New shim = current shim + measured lash − target lash. A thicker shim closes the gap. Shims are entered in mm, and a micrometer reading is more reliable than the stamped size. Lash predictions depend on your readings, so recheck every valve after refitting.</p>`;
+    <p class="formula">New shim = current shim + measured lash − target lash. A thicker shim closes the gap. Shims are entered in <span class="unit-long">mm</span>, and a micrometer reading is more reliable than the stamped size. Lash predictions depend on your readings, so recheck every valve after refitting.</p>`;
 }
 
 function parseNumber(text) {
@@ -105,33 +107,70 @@ export function initLash({ root, offers, stores, onPrice }) {
     priceText: '',
   };
 
-  root.innerHTML = template(state.spec);
+  root.innerHTML = template();
   const $ = (id) => root.querySelector(`#${id}`);
   const card = (id) => root.querySelector(`.valve[data-id="${id}"]`);
   const input = (id, field) => $(`${field}-${id}`);
 
+  // Inputs keep their millimeter value alongside the text, so showing a rounded inch value
+  // never replaces the number it came from. Text the user types is read in the current unit.
+  function setField(el, mm) {
+    if (mm === null) {
+      el.value = '';
+      delete el.dataset.mm;
+      delete el.dataset.shown;
+      return;
+    }
+    el.value = el.dataset.field === 'lash' ? formatLash(mm) : formatShim(mm);
+    el.dataset.mm = String(mm);
+    el.dataset.shown = el.value;
+  }
+
+  function readField(el, unit, band) {
+    const text = el.value.trim();
+    if (!text) return { mm: null, bad: false };
+    if (el.dataset.shown === el.value) return { mm: Number(el.dataset.mm), bad: false };
+    const number = parseNumber(text);
+    if (number === null) return { mm: null, bad: true };
+    const mm = toMm(number, unit);
+    return { mm: unit === 'in' && band ? snapToKnown(mm, [band.min, band.max]) : mm, bad: false };
+  }
+
   function fill(values) {
     for (const v of VALVES) {
-      const [shim, lash] = values?.[v.id] ?? ['', ''];
-      input(v.id, 'shim').value = shim === '' ? '' : shim.toFixed(2);
-      input(v.id, 'lash').value = lash === '' ? '' : lash.toFixed(2);
+      const [shim = null, lash = null] = values?.[v.id] ?? [];
+      setField(input(v.id, 'shim'), shim);
+      setField(input(v.id, 'lash'), lash);
+    }
+  }
+
+  function showSpec() {
+    for (const el of root.querySelectorAll('[data-spec]')) {
+      const [side, key] = el.dataset.spec.split('.');
+      el.value = formatLash(state.spec[side][key]);
+      el.setAttribute('aria-invalid', 'false');
     }
   }
 
   function collect() {
     const readings = [];
     const entered = {};
+    const unit = getUnit();
     let isSample = true;
     for (const v of VALVES) {
       const shimEl = input(v.id, 'shim');
       const lashEl = input(v.id, 'lash');
-      const shim = parseNumber(shimEl.value);
-      const lash = parseNumber(lashEl.value);
+      const shimRead = readField(shimEl, unit);
+      const lashRead = readField(lashEl, unit, state.spec[v.side]);
+      const shim = shimRead.mm;
+      const lash = lashRead.mm;
       const shimOk = shim === null || (shim >= 1.5 && shim <= 4.5);
       const lashOk = lash === null || (lash >= 0 && lash <= 1);
-      shimEl.setAttribute('aria-invalid', String(!shimOk || (shim === null && shimEl.value.trim() !== '')));
-      lashEl.setAttribute('aria-invalid', String(!lashOk || (lash === null && lashEl.value.trim() !== '')));
-      if (shimEl.value.trim() || lashEl.value.trim()) entered[v.id] = [shimEl.value.trim(), lashEl.value.trim()];
+      shimEl.setAttribute('aria-invalid', String(!shimOk || shimRead.bad));
+      lashEl.setAttribute('aria-invalid', String(!lashOk || lashRead.bad));
+      if (shimEl.value.trim() || lashEl.value.trim()) {
+        entered[v.id] = [shim === null ? shimEl.value.trim() : String(shim), lash === null ? lashEl.value.trim() : String(lash)];
+      }
       const sample = SAMPLE[v.id];
       if (shim !== sample[0] || lash !== sample[1]) isSample = false;
       if (shim !== null && lash !== null && shimOk && lashOk) {
@@ -251,8 +290,8 @@ export function initLash({ root, offers, stores, onPrice }) {
         : `${v.id}'s ${shimLabel(v.shim)} shim would not fix any out-of-spec valve.`;
     } else {
       hint.textContent = v.fixedBy.length
-        ? `${v.id} needs a shim from ${range} mm. These valves hold one: ${v.fixedBy.join(', ')}.`
-        : `${v.id} needs a shim from ${range} mm. None of your shims fit.`;
+        ? `${v.id} needs a shim from ${range} ${unitName()}. These valves hold one: ${v.fixedBy.join(', ')}.`
+        : `${v.id} needs a shim from ${range} ${unitName()}. None of your shims fit.`;
     }
   }
 
@@ -288,7 +327,8 @@ export function initLash({ root, offers, stores, onPrice }) {
 
   function setSpec(el) {
     const [side, key] = el.dataset.spec.split('.');
-    const value = parseNumber(el.value);
+    const typed = parseNumber(el.value);
+    const value = typed === null ? null : toMm(typed);
     const other = state.spec[side][key === 'min' ? 'max' : 'min'];
     const valid = value !== null && value >= 0 && value <= 1 && (key === 'min' ? value <= other : value >= other);
     el.setAttribute('aria-invalid', String(!valid));
@@ -323,12 +363,30 @@ export function initLash({ root, offers, stores, onPrice }) {
     input('I1F', 'shim').focus();
   });
 
+  onUnitChange((next, previous) => {
+    for (const v of VALVES) {
+      for (const field of ['shim', 'lash']) {
+        const el = input(v.id, field);
+        const { mm } = readField(el, previous, field === 'lash' ? state.spec[v.side] : undefined);
+        if (mm !== null) setField(el, mm);
+      }
+    }
+    showSpec();
+    render();
+  });
+
+  // Saved readings are always millimeters. Text that isn't a number is kept as typed.
+  showSpec();
   const restored = saved?.entered;
   if (restored) {
     for (const v of VALVES) {
-      const [shim = '', lash = ''] = restored[v.id] ?? [];
-      input(v.id, 'shim').value = shim;
-      input(v.id, 'lash').value = lash;
+      for (const [index, field] of ['shim', 'lash'].entries()) {
+        const value = restored[v.id]?.[index] ?? '';
+        const mm = parseNumber(value);
+        const el = input(v.id, field);
+        if (mm === null) el.value = value;
+        else setField(el, mm);
+      }
     }
   } else {
     fill(SAMPLE);

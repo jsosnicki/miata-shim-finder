@@ -1,16 +1,40 @@
 import { buildOffers, offersForRequest, orderAsText, parseSizes, solve } from './optimizer.js';
 import { initLash } from './lash-ui.js';
+import { MM_PER_IN, formatExact, formatShim, getUnit, isImperial, onUnitChange, setUnit, unitLong, unitName } from './units.js';
 
 const SAMPLE = '2.75x3, 2.80x2, 2.85, 2.90x2, 3.00, 3.05x2, 3.10, 3.15, 3.20, 3.30x2';
 const STORAGE_KEY = 'miata-shim-finder:list';
 
 const $ = (id) => document.getElementById(id);
 const money = (n) => `$${n.toFixed(2)}`;
-const mmText = (n) => n.toFixed(3);
-const mmShort = (n) => n.toFixed(3).replace(/0$/, '');
+const mmText = (n) => formatExact(n);
+const mmShort = (n) => formatShim(n);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const state = { catalog: null, prices: null, offers: [], result: null, open: new Set() };
+
+// Text this page wrote keeps its exact sizes. Two parts can round to the same inch value
+// (3.25 and 3.252 mm both show as 0.1280), so the shown text alone can't be trusted.
+function parseList(text) {
+  if (state.shownList?.text === text) return state.shownList.parsed;
+  return parseSizes(text, { snap: state.catalog.parts.map((p) => p.mm) });
+}
+
+function showList(parsed) {
+  const text = listText(parsed.requests, parsed.errors);
+  state.shownList = { text, parsed };
+  $('sizes').value = text;
+}
+
+// The size list as text in the current unit.
+function listText(requests, extras = []) {
+  return requests
+    .map((r) => `${formatShim(r.mm)}${r.qty > 1 ? `x${r.qty}` : ''}`)
+    .concat(extras)
+    .join(', ');
+}
+
+const sampleList = () => parseSizes(SAMPLE);
 
 function readList() {
   try {
@@ -66,7 +90,7 @@ function renderOrder(result, opts, alt) {
           const o = l.offer;
           const pack = o.packQty > 1 ? `${l.units} × ${o.packQty}-pack` : `${l.units} ×`;
           const notes = [];
-          if (o.mm !== l.request.mm) notes.push(`${mmText(o.mm)} mm for ${mmText(l.request.mm)}`);
+          if (o.mm !== l.request.mm) notes.push(`${mmText(o.mm)} ${unitName()} for ${mmText(l.request.mm)}`);
           if (l.spare) notes.push(`${l.spare} spare`);
           if (o.status === 'backorder') notes.push('0 on hand');
           else if (o.lead) notes.push(o.lead);
@@ -154,7 +178,7 @@ function renderMatrix(requests, opts) {
       <p class="help">Parts cost to cover the quantity, before shipping. Open a size to see every store.</p>
     </div>
     <div class="table-scroll"><table>
-      <thead><tr><th>Size (mm)</th>${heads}</tr></thead>
+      <thead><tr><th>Size (${unitName()})</th>${heads}</tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
   </section>`;
@@ -165,7 +189,7 @@ function renderUnmatched(unmatched) {
   const items = unmatched
     .map((u) => {
       const near = [u.below, u.above].filter((v) => v !== null).map(mmText).join(' or ');
-      return `<strong>${mmText(u.mm)} mm</strong> (nearest: ${near || 'none'})`;
+      return `<strong>${mmText(u.mm)} ${unitName()}</strong> (nearest: ${near || 'none'})`;
     })
     .join(', ');
   return `<p class="alert"><strong>No orderable part for:</strong> ${items}. These are left out of the total.</p>`;
@@ -183,12 +207,14 @@ function renderGauge(requests) {
   const MAX = 3.4;
   const x = (mm) => LEFT + ((mm - MIN) / (MAX - MIN)) * (W - LEFT - RIGHT);
 
+  const axisLabel = (mm) => (isImperial() ? (mm / MM_PER_IN).toFixed(3) : mm.toFixed(1));
+
   const orderable = new Set(
     state.offers.filter((o) => o.price > 0 && o.status !== 'unavailable').map((o) => o.part)
   );
   let svg = '';
   for (let v = 2.0; v <= 3.4001; v += 0.2) {
-    svg += `<text x="${x(v)}" y="${H - 6}" text-anchor="middle">${v.toFixed(1)}</text>`;
+    svg += `<text x="${x(v)}" y="${H - 6}" text-anchor="middle">${axisLabel(v)}</text>`;
   }
   lineIds.forEach((id, i) => {
     const y = TOP + ROW * i + ROW / 2;
@@ -196,26 +222,26 @@ function renderGauge(requests) {
     svg += `<line class="rail" x1="${LEFT}" x2="${W - RIGHT}" y1="${y}" y2="${y}"/>`;
     for (const p of state.catalog.parts.filter((q) => q.line === id)) {
       const on = orderable.has(p.id);
-      svg += `<line class="${on ? 'tick-on' : 'tick-off'}" x1="${x(p.mm)}" x2="${x(p.mm)}" y1="${y - 11}" y2="${y + 11}"><title>${esc(p.id)}: ${mmText(p.mm)} mm${on ? '' : ', unavailable'}</title></line>`;
+      svg += `<line class="${on ? 'tick-on' : 'tick-off'}" x1="${x(p.mm)}" x2="${x(p.mm)}" y1="${y - 11}" y2="${y + 11}"><title>${esc(p.id)}: ${mmText(p.mm)} ${unitName()}${on ? '' : ', unavailable'}</title></line>`;
     }
   });
   for (const r of requests) {
     if (r.mm < MIN || r.mm > MAX) continue;
-    svg += `<line class="marker" x1="${x(r.mm)}" x2="${x(r.mm)}" y1="${TOP - 4}" y2="${H - 20}"><title>Your list: ${mmText(r.mm)} mm</title></line>`;
+    svg += `<line class="marker" x1="${x(r.mm)}" x2="${x(r.mm)}" y1="${TOP - 4}" y2="${H - 20}"><title>Your list: ${mmText(r.mm)} ${unitName()}</title></line>`;
   }
-  $('gauge').innerHTML = `<svg class="gauge" viewBox="0 0 ${W} ${H}" role="img" aria-label="Shim sizes available from each part line, from 2.0 to 3.4 mm">${svg}</svg>`;
+  $('gauge').innerHTML = `<svg class="gauge" viewBox="0 0 ${W} ${H}" role="img" aria-label="Shim sizes available from each part line, from ${axisLabel(MIN)} to ${axisLabel(MAX)} ${unitName()}">${svg}</svg>`;
 }
 
 function render() {
   const raw = $('sizes').value;
   saveList(raw);
-  $('sample-tag').hidden = raw.trim() !== SAMPLE;
 
-  const { requests, errors } = parseSizes(raw);
+  const { requests, errors } = parseList(raw);
+  $('sample-tag').hidden = JSON.stringify(requests) !== JSON.stringify(sampleList().requests);
   const errBox = $('parse-errors');
   errBox.hidden = !errors.length;
   errBox.textContent = errors.length
-    ? `Could not read: ${errors.join(', ')}. Sizes should be between 1.5 and 4.5 mm.`
+    ? `Could not read: ${errors.join(', ')}. Sizes should be between ${isImperial() ? '0.059 and 0.177 in' : '1.5 and 4.5 mm'}.`
     : '';
 
   const opts = currentOptions();
@@ -276,7 +302,7 @@ function renderFreshness() {
 }
 
 async function copyOrder(button) {
-  const text = orderAsText(state.result);
+  const text = orderAsText(state.result, undefined, (mm) => `${formatExact(mm)} ${unitName()}`);
   try {
     await navigator.clipboard.writeText(text);
     button.textContent = 'Copied';
@@ -300,7 +326,7 @@ function bindEvents() {
   $('line-filters').addEventListener('change', render);
   $('store-filters').addEventListener('change', render);
   $('use-sample').addEventListener('click', () => {
-    $('sizes').value = SAMPLE;
+    showList(sampleList());
     render();
   });
   $('clear').addEventListener('click', () => {
@@ -321,6 +347,38 @@ function bindEvents() {
     else state.open.add(key);
     render();
   });
+}
+
+function applyUnitText() {
+  const imperial = isImperial();
+  document.documentElement.dataset.units = getUnit();
+  $('unit-mm').setAttribute('aria-pressed', String(!imperial));
+  $('unit-in').setAttribute('aria-pressed', String(imperial));
+  for (const el of document.querySelectorAll('.unit-short')) el.textContent = unitName();
+  for (const el of document.querySelectorAll('.unit-long')) el.textContent = unitLong();
+
+  const within = imperial
+    ? { 0.005: '0.0002 in', 0.01: '0.0004 in', 0.025: '0.001 in' }
+    : { 0.005: '0.005 mm', 0.01: '0.010 mm', 0.025: '0.025 mm' };
+  for (const option of $('tolerance').options) {
+    if (option.value !== '0') option.textContent = `Within ${within[Number(option.value)]}`;
+  }
+  $('sizes-help').innerHTML = imperial
+    ? 'Separate with commas or new lines. Repeat a size or write <code>0.1201x2</code> for two. Millimeters work too: <code>3.05</code>.'
+    : 'Separate with commas or new lines. Repeat a size or write <code>3.05x2</code> for two. Inches work too: <code>0.1201</code>.';
+  $('tolerance-help').textContent = `Mazda's nominal sizes are slightly off round, such as ${formatShim(3.052)} for ${formatShim(3.05)}. The default treats those as the same size.`;
+  $('diameter-note').textContent = imperial ? '1.063 in (1.061 in actual)' : '27 mm (26.95 mm actual)';
+}
+
+function bindUnits() {
+  $('unit-mm').addEventListener('click', () => setUnit('mm'));
+  $('unit-in').addEventListener('click', () => setUnit('in'));
+  onUnitChange(() => {
+    showList(parseList($('sizes').value));
+    applyUnitText();
+    render();
+  });
+  applyUnitText();
 }
 
 function showView(name, { focus = false } = {}) {
@@ -360,20 +418,24 @@ async function start() {
   state.offers = buildOffers(state.catalog, state.prices);
   renderFilters();
   renderFreshness();
-  $('sizes').value = readList() ?? SAMPLE;
+  const savedList = readList();
+  if (savedList === null) showList(sampleList());
+  else $('sizes').value = savedList;
   bindEvents();
+  bindUnits();
   render();
   initLash({
     root: $('view-lash'),
     offers: state.offers,
     stores: state.catalog.stores,
     onPrice(sizes) {
-      $('sizes').value = sizes;
+      showList(parseSizes(sizes));
       render();
       showView('shims', { focus: true });
       window.scrollTo(0, 0);
     },
   });
+  applyUnitText();
   bindTabs();
 }
 

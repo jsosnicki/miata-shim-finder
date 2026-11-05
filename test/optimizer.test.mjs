@@ -42,6 +42,13 @@ test('parseSizes reads the accepted formats', () => {
   assert.equal(get(2.9), 3);
 });
 
+test('parseSizes can snap a rounded inch value back to a known size', () => {
+  assert.equal(parseSizes('0.1202').requests[0].mm, 3.053);
+  assert.equal(parseSizes('0.1202', { snap: [3.052] }).requests[0].mm, 3.052);
+  assert.equal(parseSizes('3.053', { snap: [3.052] }).requests[0].mm, 3.053); // mm is never snapped
+  assert.equal(parseSizes('0.1300', { snap: [3.052] }).requests[0].mm, 3.302);
+});
+
 test('parseSizes reports what it cannot read', () => {
   const { requests, errors } = parseSizes('abc, 9.9, 2.75');
   assert.deepEqual(errors, ['abc', '9.9']);

@@ -14,9 +14,16 @@
   <main id="app" class="page">
     <header class="masthead">
       <h1>Miata Shim Finder</h1>
-      <p class="lede">Enter the shim sizes you need. This finds the cheapest order across the Toyota, Silver Seal and Mazda parts that fit a BP head, with pack sizes and shipping counted.</p>
+      <p class="lede">Enter your lash readings to see which shims can swap between valves, then find the cheapest way to buy the rest across Toyota, Silver Seal and Mazda parts for a BP head.</p>
+      <div class="tabs" role="tablist" aria-label="Tools">
+        <button type="button" role="tab" id="tab-lash" aria-controls="view-lash" aria-selected="true">Lash plan</button>
+        <button type="button" role="tab" id="tab-shims" aria-controls="view-shims" aria-selected="false">Buy shims</button>
+      </div>
     </header>
 
+    <section id="view-lash" class="view" role="tabpanel" aria-labelledby="tab-lash"></section>
+
+    <div id="view-shims" class="view" role="tabpanel" aria-labelledby="tab-shims" hidden>
     <div class="layout">
       <section class="controls" aria-label="Your shims">
         <div class="field">
@@ -84,6 +91,7 @@
       </ul>
       <p class="sources">Parts: <a href="https://www.thecarpassionchannel.com/wp-content/uploads/2019/11/Shim-Part-Numbers.pdf">Shim Part Numbers PDF</a>, checked against the <a href="https://www.miataturbo.net/engine-performance-56/bp-lifter-shims-90918/">Miata Turbo BP lifter shims thread</a>.</p>
     </footer>
+    </div>
   </main>
   <script type="module" src="assets/app.js"></script>
 </body>

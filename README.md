@@ -1,8 +1,17 @@
 # Miata Shim Finder
 
-Enter a list of valve shim sizes and get the cheapest order for a Mazda BP solid-lifter head, across the Toyota, Silver Seal and Mazda parts in the [Shim Part Numbers PDF](https://www.thecarpassionchannel.com/wp-content/uploads/2019/11/Shim-Part-Numbers.pdf).
+Enter your valve lash readings to see which shims can move between valves, then get the cheapest order for the rest. It's built for a Mazda BP solid-lifter head and covers the Toyota, Silver Seal and Mazda parts in the [Shim Part Numbers PDF](https://www.thecarpassionchannel.com/wp-content/uploads/2019/11/Shim-Part-Numbers.pdf).
 
-## What it does
+## Lash plan
+
+- Enter the shim and measured lash for each of the 16 valves on the head diagram. Partial heads work, and only valves with both numbers are planned.
+- The default lash spec is 0.18 to 0.23 mm intake and 0.28 to 0.34 mm exhaust. Both can be edited.
+- For each valve, shim + lash is fixed, so its in-spec shim range is `shim + lash - spec max` to `shim + lash - spec min`.
+- Every valve gets one shim from the 16 on hand or a bought one, using a minimum cost assignment. The goals, in order, are fewest shims bought, fewest shims moved, and lash closest to mid-range.
+- Matching letters on the diagram show each move. Each valve also lists the out-of-spec valves its shim would fit, even if the plan doesn't use that swap. Selecting a valve highlights its matches.
+- **Price these shims** sends the buy list to the shim finder.
+
+## Buying shims
 
 - Reads sizes as `2.75, 2.75, 3.05x2`, as stamped values such as `275`, or as inches such as `0.1083`.
 - Matches each size to every part number within the tolerance you choose. The default of 0.005 mm treats Mazda's 3.052 as 3.05.

@@ -1,4 +1,5 @@
 import { buildOffers, offersForRequest, orderAsText, parseSizes, solve } from './optimizer.js';
+import { initLash } from './lash-ui.js';
 
 const SAMPLE = '2.75x3, 2.80x2, 2.85, 2.90x2, 3.00, 3.05x2, 3.10, 3.15, 3.20, 3.30x2';
 const STORAGE_KEY = 'miata-shim-finder:list';
@@ -322,6 +323,24 @@ function bindEvents() {
   });
 }
 
+function showView(name, { focus = false } = {}) {
+  const lash = name !== 'shims';
+  $('view-lash').hidden = !lash;
+  $('view-shims').hidden = lash;
+  $('tab-lash').setAttribute('aria-selected', String(lash));
+  $('tab-shims').setAttribute('aria-selected', String(!lash));
+  if (focus) (lash ? $('tab-lash') : $('tab-shims')).focus();
+  const hash = `#${lash ? 'lash' : 'shims'}`;
+  if (window.location.hash !== hash) window.history.replaceState(null, '', hash);
+}
+
+function bindTabs() {
+  $('tab-lash').addEventListener('click', () => showView('lash'));
+  $('tab-shims').addEventListener('click', () => showView('shims'));
+  window.addEventListener('hashchange', () => showView(window.location.hash.slice(1)));
+  showView(window.location.hash === '#shims' ? 'shims' : 'lash');
+}
+
 async function loadJson(path) {
   const res = await fetch(path, { cache: 'no-cache' });
   if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
@@ -344,6 +363,18 @@ async function start() {
   $('sizes').value = readList() ?? SAMPLE;
   bindEvents();
   render();
+  initLash({
+    root: $('view-lash'),
+    offers: state.offers,
+    stores: state.catalog.stores,
+    onPrice(sizes) {
+      $('sizes').value = sizes;
+      render();
+      showView('shims', { focus: true });
+      window.scrollTo(0, 0);
+    },
+  });
+  bindTabs();
 }
 
 start();

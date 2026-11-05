@@ -177,3 +177,84 @@ tbody tr.size-row:last-of-type td, tbody tr.detail-row:last-of-type td { border-
 @media (prefers-reduced-motion: no-preference) {
   .ghost { transition: border-color 120ms ease; }
 }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; margin-top: 12px; border-bottom: 1px solid var(--rule); }
+.tabs button { background: none; border: 0; border-bottom: 3px solid transparent; border-radius: 0; color: var(--muted); font: 700 1.2rem var(--font-display); padding: 6px 14px 5px; margin-bottom: -1px; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tabs button:hover { color: var(--ink); }
+.view { display: grid; gap: 24px; min-width: 0; }
+.view[hidden] { display: none; }
+.view > * { min-width: 0; }
+
+/* Lash plan */
+.lash-top { display: flex; justify-content: space-between; gap: 16px 24px; align-items: flex-end; flex-wrap: wrap; }
+.lash-top .button-row { align-items: center; }
+.spec-row { display: flex; gap: 12px 24px; flex-wrap: wrap; }
+.spec-group { border: 0; margin: 0; padding: 0; display: grid; gap: 4px; }
+.spec-group legend { font-weight: 600; font-size: 0.86rem; padding: 0; }
+.spec-inputs { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 0.84rem; }
+.spec-inputs input { width: 4.4em; }
+.num { background: var(--bg); color: var(--ink); border: 1px solid var(--rule); border-radius: 3px; padding: 4px 6px; font: 400 0.9rem var(--font-mono); font-variant-numeric: tabular-nums; }
+.num[aria-invalid="true"] { border-color: var(--bad); }
+
+.plan-band { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
+.plan-band div { display: grid; gap: 2px; align-content: start; }
+.plan-figure { font: 700 clamp(2rem, 6vw, 3rem)/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.plan-band .lead .plan-figure { color: var(--accent); }
+.plan-cap { color: var(--muted); font-size: 0.82rem; line-height: 1.3; }
+
+.head { background: var(--surface); border: 1px solid var(--rule); border-radius: 18px; padding: 12px; display: grid; gap: 8px; }
+.head-legend { display: flex; justify-content: space-between; gap: 6px 16px; flex-wrap: wrap; font-size: 0.8rem; color: var(--muted); }
+.cyls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+/* Subgrid keeps the intake and exhaust rows level across cylinders. */
+.cyl { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 6px; padding: 8px; border: 1px dashed var(--rule); border-radius: 12px; min-width: 0; align-content: start; }
+.cyl-name { display: flex; align-items: center; gap: 8px; font: 700 1.05rem var(--font-display); }
+.plug { width: 14px; height: 14px; border-radius: 50%; border: 3px double var(--muted); flex: none; }
+.bank { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.bank-name { font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.valve { display: grid; gap: 5px; align-content: start; min-width: 0; background: var(--bg); border: 1px solid var(--rule); border-radius: 8px; padding: 6px; }
+.valve.selected { outline: 2px solid var(--accent); outline-offset: 1px; }
+.valve.match { border-color: var(--accent); background: var(--accent-soft); }
+.valve-head { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.bucket { width: 42px; height: 42px; flex: none; border-radius: 50%; border: 3px solid var(--tick-off); background: var(--surface); color: var(--ink); padding: 0; font: 500 0.76rem var(--font-mono); }
+.valve[data-status="ok"] .bucket { border-color: var(--good); }
+.valve[data-status="tight"] .bucket { border-color: var(--bad); }
+.valve[data-status="loose"] .bucket { border-color: var(--brass); }
+.bucket:hover { background: var(--accent-soft); }
+.bucket[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+.valve-status { font-size: 0.76rem; font-weight: 600; line-height: 1.15; min-width: 0; color: var(--muted); }
+.valve[data-status="ok"] .valve-status { color: var(--good); }
+.valve[data-status="tight"] .valve-status { color: var(--bad); }
+.valve[data-status="loose"] .valve-status { color: var(--brass); }
+.valve-inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+.valve-inputs label { display: grid; gap: 1px; font-size: 0.7rem; color: var(--muted); min-width: 0; }
+.valve-inputs .num { width: 100%; min-width: 0; padding: 3px 4px; font-size: 0.86rem; }
+.valve-plan { font-size: 0.76rem; line-height: 1.3; display: grid; gap: 2px; min-height: 3.9em; align-content: start; }
+.valve-plan b { font-weight: 600; font-family: var(--font-mono); }
+.valve-plan .fits { color: var(--muted); }
+.chip { display: inline-block; min-width: 1.5em; text-align: center; font: 600 0.72rem/1.4 var(--font-mono); color: var(--surface); background: var(--accent); border-radius: 3px; padding: 0 3px; margin-right: 3px; }
+.chip.buy { background: var(--brass); }
+.head-hint { margin: 0; font-size: 0.84rem; min-height: 1.3em; }
+
+.plan-lists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; align-items: start; }
+.plan-lists > * { min-width: 0; }
+.plan-lists h2, .fix-table h2 { font-size: 1.4rem; margin-bottom: 6px; }
+.step-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 0.9rem; }
+.step-list li { display: flex; gap: 4px; align-items: baseline; flex-wrap: wrap; }
+.step-list .mono { font-family: var(--font-mono); font-size: 0.86rem; }
+.buy-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+.solid { background: var(--accent); color: var(--surface); border: 1px solid var(--accent); font-weight: 600; }
+.solid:hover { filter: brightness(1.1); }
+.formula { margin: 0; font-size: 0.84rem; color: var(--muted); max-width: 80ch; }
+
+@media (max-width: 1000px) {
+  .cyls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .cyls { grid-template-columns: minmax(0, 1fr); }
+  .plan-band { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .plan-lists { grid-template-columns: minmax(0, 1fr); }
+  .head { border-radius: 10px; padding: 8px; }
+  .valve-plan { min-height: 0; }
+}

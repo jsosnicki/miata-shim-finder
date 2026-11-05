@@ -1,33 +1,36 @@
 {
- "generatedAt": "2026-11-05T16:00:00Z",
+ "generatedAt": "2026-11-05T16:18:05.185Z",
  "stores": {
   "toyotapartsdeal": {
    "checkedAt": "2026-11-05T16:00:00Z",
-   "status": "ok"
+   "status": "stale",
+   "failed": 1
   },
   "toyotapartsnow": {
-   "checkedAt": "2026-11-05T16:00:00Z",
+   "checkedAt": "2026-11-05T16:18:05.185Z",
    "status": "ok"
   },
   "lexuspartsnow": {
-   "checkedAt": "2026-11-05T16:00:00Z",
+   "checkedAt": "2026-11-05T16:18:05.185Z",
    "status": "ok"
   },
   "pistondepot": {
-   "checkedAt": "2026-11-05T16:00:00Z",
+   "checkedAt": "2026-11-05T16:18:05.185Z",
    "status": "ok"
   },
   "mazdapartsnow": {
-   "checkedAt": "2026-11-05T16:00:00Z",
+   "checkedAt": "2026-11-05T16:18:05.185Z",
    "status": "ok"
   },
   "originalmazdaparts": {
    "checkedAt": "2026-11-05T16:00:00Z",
-   "status": "ok"
+   "status": "stale",
+   "failed": 14
   },
   "mazdapartsfactor": {
    "checkedAt": "2026-11-05T16:00:00Z",
-   "status": "ok"
+   "status": "stale",
+   "failed": 14
   }
  },
  "offers": [
@@ -433,7 +436,7 @@
   {
    "store": "toyotapartsnow",
    "part": "13753-50510",
-   "price": 16.0,
+   "price": 16,
    "status": "unavailable",
    "url": "https://www.toyotapartsnow.com/oem/toyota~shim-valve-adjusting~13753-50510"
   },
@@ -725,322 +728,6 @@
    "url": "https://www.lexuspartsnow.com/parts/lexus-shim-valve-adjusting~13753-50610.html"
   },
   {
-   "store": "mazdapartsnow",
-   "part": "Z5Y1-12-541",
-   "price": 12.96,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y112541"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z5Y1-12-541",
-   "price": 12.44,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y112541",
-   "lead": "Ships in 2 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z5Y1-12-541",
-   "price": 14.93,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y112541",
-   "lead": "Ready to ship today"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z5Y2-12-541",
-   "price": 13.36,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y212541"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z5Y2-12-541",
-   "price": 12.83,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y212541",
-   "lead": "Ships in 7 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z5Y2-12-541",
-   "price": 15.39,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y212541"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z5Y3-12-541",
-   "price": 13.36,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y312541"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z5Y3-12-541",
-   "price": 12.83,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y312541",
-   "lead": "Ships in 7 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z5Y3-12-541",
-   "price": 15.39,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y312541"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z5Y4-12-541",
-   "price": 13.36,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y412541"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z5Y4-12-541",
-   "price": 12.83,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y412541",
-   "lead": "Ships in 7 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z5Y4-12-541",
-   "price": 15.39,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y412541"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z5Y5-12-541",
-   "price": 9.32,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y512541"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z5Y5-12-541",
-   "price": 13.9,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y512541",
-   "lead": "Ships in 2 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z5Y5-12-541",
-   "price": 42.76,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y512541",
-   "lead": "Ready to ship today"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z5Y6-12-541",
-   "price": 13.36,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y612541"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z5Y6-12-541",
-   "price": 12.83,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y612541",
-   "lead": "Ships in 2 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z5Y6-12-541",
-   "price": 15.39,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y612541",
-   "lead": "Ready to ship today"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z502-12-545",
-   "price": 13.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212545"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z502-12-545",
-   "price": 12.59,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212545",
-   "lead": "Ships in 2 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z502-12-545",
-   "price": 15.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212545"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z502-12-552",
-   "price": 13.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212552"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z502-12-552",
-   "price": 12.59,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212552",
-   "lead": "Ships in 2 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z502-12-552",
-   "price": 15.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212552",
-   "lead": "Ready to ship today"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z502-12-558",
-   "price": 13.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212558"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z502-12-558",
-   "price": 12.59,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212558",
-   "lead": "Ships in 7 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z502-12-558",
-   "price": 15.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212558",
-   "lead": "Ready to ship today"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z502-12-565",
-   "price": 13.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212565"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z502-12-565",
-   "price": 12.59,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212565",
-   "lead": "Ships in 2 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z502-12-565",
-   "price": 15.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212565",
-   "lead": "Ready to ship today"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z502-12-573",
-   "price": 13.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212573"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z502-12-573",
-   "price": 12.59,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212573",
-   "lead": "Ships in 2 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z502-12-573",
-   "price": 15.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212573",
-   "lead": "Ready to ship today"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z502-12-579",
-   "price": 13.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212579"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z502-12-579",
-   "price": 12.59,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212579",
-   "lead": "Ships in 2 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z502-12-579",
-   "price": 15.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212579"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z502-12-586",
-   "price": 13.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212586"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z502-12-586",
-   "price": 12.59,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212586",
-   "lead": "Ships in 2 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z502-12-586",
-   "price": 15.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212586"
-  },
-  {
-   "store": "mazdapartsnow",
-   "part": "Z502-12-593",
-   "price": 13.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212593"
-  },
-  {
-   "store": "originalmazdaparts",
-   "part": "Z502-12-593",
-   "price": 12.59,
-   "status": "in_stock",
-   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212593",
-   "lead": "Ships in 7 days"
-  },
-  {
-   "store": "mazdapartsfactor",
-   "part": "Z502-12-593",
-   "price": 15.11,
-   "status": "in_stock",
-   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212593",
-   "lead": "Ready to ship today"
-  },
-  {
    "store": "pistondepot",
    "part": "NISK2-00",
    "price": 18.15,
@@ -1207,6 +894,322 @@
    "status": "backorder",
    "url": "https://pistondepot.com/products/nisk3-00-silver-seal-valve-clearance-discs",
    "lead": "Orderable, listed 0 on hand"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z5Y1-12-541",
+   "price": 12.96,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y112541"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z5Y2-12-541",
+   "price": 13.36,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y212541"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z5Y3-12-541",
+   "price": 13.36,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y312541"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z5Y4-12-541",
+   "price": 13.36,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y412541"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z5Y5-12-541",
+   "price": 9.32,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y512541"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z5Y6-12-541",
+   "price": 13.36,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z5y612541"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z502-12-545",
+   "price": 13.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212545"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z502-12-552",
+   "price": 13.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212552"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z502-12-558",
+   "price": 13.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212558"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z502-12-565",
+   "price": 13.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212565"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z502-12-573",
+   "price": 13.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212573"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z502-12-579",
+   "price": 13.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212579"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z502-12-586",
+   "price": 13.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212586"
+  },
+  {
+   "store": "mazdapartsnow",
+   "part": "Z502-12-593",
+   "price": 13.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsnow.com/genuine/mazda~shim~z50212593"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z5Y1-12-541",
+   "price": 12.44,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y112541",
+   "lead": "Ships in 2 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z5Y2-12-541",
+   "price": 12.83,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y212541",
+   "lead": "Ships in 7 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z5Y3-12-541",
+   "price": 12.83,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y312541",
+   "lead": "Ships in 7 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z5Y4-12-541",
+   "price": 12.83,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y412541",
+   "lead": "Ships in 7 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z5Y5-12-541",
+   "price": 13.9,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y512541",
+   "lead": "Ships in 2 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z5Y6-12-541",
+   "price": 12.83,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z5y612541",
+   "lead": "Ships in 2 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z502-12-545",
+   "price": 12.59,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212545",
+   "lead": "Ships in 2 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z502-12-552",
+   "price": 12.59,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212552",
+   "lead": "Ships in 2 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z502-12-558",
+   "price": 12.59,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212558",
+   "lead": "Ships in 7 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z502-12-565",
+   "price": 12.59,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212565",
+   "lead": "Ships in 2 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z502-12-573",
+   "price": 12.59,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212573",
+   "lead": "Ships in 2 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z502-12-579",
+   "price": 12.59,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212579",
+   "lead": "Ships in 2 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z502-12-586",
+   "price": 12.59,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212586",
+   "lead": "Ships in 2 days"
+  },
+  {
+   "store": "originalmazdaparts",
+   "part": "Z502-12-593",
+   "price": 12.59,
+   "status": "in_stock",
+   "url": "https://www.originalmazdaparts.com/oem-parts/mazda-shim-z50212593",
+   "lead": "Ships in 7 days"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z5Y1-12-541",
+   "price": 14.93,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y112541",
+   "lead": "Ready to ship today"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z5Y2-12-541",
+   "price": 15.39,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y212541"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z5Y3-12-541",
+   "price": 15.39,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y312541"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z5Y4-12-541",
+   "price": 15.39,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y412541"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z5Y5-12-541",
+   "price": 42.76,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y512541",
+   "lead": "Ready to ship today"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z5Y6-12-541",
+   "price": 15.39,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z5y612541",
+   "lead": "Ready to ship today"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z502-12-545",
+   "price": 15.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212545"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z502-12-552",
+   "price": 15.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212552",
+   "lead": "Ready to ship today"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z502-12-558",
+   "price": 15.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212558",
+   "lead": "Ready to ship today"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z502-12-565",
+   "price": 15.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212565",
+   "lead": "Ready to ship today"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z502-12-573",
+   "price": 15.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212573",
+   "lead": "Ready to ship today"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z502-12-579",
+   "price": 15.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212579"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z502-12-586",
+   "price": 15.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212586"
+  },
+  {
+   "store": "mazdapartsfactor",
+   "part": "Z502-12-593",
+   "price": 15.11,
+   "status": "in_stock",
+   "url": "https://www.mazdapartsfactor.com/oem-parts/mazda-shim-z50212593",
+   "lead": "Ready to ship today"
   }
  ]
 }

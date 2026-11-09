@@ -1,25 +1,24 @@
 {
- "generatedAt": "2026-11-05T16:18:05.185Z",
+ "generatedAt": "2026-11-09T19:55:33.728Z",
  "stores": {
   "toyotapartsdeal": {
-   "checkedAt": "2026-11-05T16:00:00Z",
-   "status": "stale",
-   "failed": 1
+   "checkedAt": "2026-11-09T19:55:33.728Z",
+   "status": "ok"
   },
   "toyotapartsnow": {
-   "checkedAt": "2026-11-05T16:18:05.185Z",
+   "checkedAt": "2026-11-09T19:55:33.728Z",
    "status": "ok"
   },
   "lexuspartsnow": {
-   "checkedAt": "2026-11-05T16:18:05.185Z",
+   "checkedAt": "2026-11-09T19:55:33.728Z",
    "status": "ok"
   },
   "pistondepot": {
-   "checkedAt": "2026-11-05T16:18:05.185Z",
+   "checkedAt": "2026-11-09T19:55:33.728Z",
    "status": "ok"
   },
   "mazdapartsnow": {
-   "checkedAt": "2026-11-05T16:18:05.185Z",
+   "checkedAt": "2026-11-09T19:55:33.728Z",
    "status": "ok"
   },
   "originalmazdaparts": {
